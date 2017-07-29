@@ -28,11 +28,9 @@ export function parseTime(time, cFormat) {
 
 
   const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}';
-  let date;
+  let date = new Date(time);
   if (typeof time == 'object') {
     date = time;
-  } else {
-    date = new Date(time);
   }
   const formatObj = {
     y: date.getFullYear(),
