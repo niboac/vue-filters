@@ -41,7 +41,9 @@ export function parseTime(time, cFormat) {
     s: date.getSeconds(),
     a: date.getDay()
   };
-  const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
+  console.log(format)
+  let test = new RegExp('{(y|m|d|h|i|s|a)+}', 'g');
+  const time_str = format.replace(test, function(result, key) {
     let value = formatObj[key];
     if (key === 'a') return ['一', '二', '三', '四', '五', '六', '日'][value - 1];
     if (result.length > 0 && value < 10) {
@@ -87,7 +89,9 @@ export function nFormatter(num, digits) {
   ];
   for (let i = 0; i < si.length; i++) {
     if (num >= si[i].value) {
-      return (num / si[i].value + 0.1).toFixed(digits).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, '$1') + si[i].symbol;
+      let test = new RegExp('\.0+$|(\.[0-9]*[1-9])0+$');
+
+      return (num / si[i].value + 0.1).toFixed(digits).replace(test, '$1') + si[i].symbol;
     }
   }
   return num.toString();
@@ -102,7 +106,9 @@ export function html2Text(val) {
 
 // 给数字加逗号分隔符
 export function toThousandFilter(num) {
-  return (+num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+  let test = new RegExp('(\d)(?=(?:\d{3})+$)', 'g');
+
+  return (+num || 0).toString().replace(test, '$1,');
 }
 
 // 数字转万单位
@@ -116,11 +122,11 @@ export function floor(num) {
 }
 
 // 取字符串的前几位
-export function stringLeft(str, num = 8) {
-  return str ? str.slice(0, num) : '';
+export function stringLeft(str, num) {
+  return str ? str.slice(0, (num || 8)) : '';
 }
 
-export function toFixed(str, reserved = 2) {
+export function toFixed(str, reserved) {
   // 本函数支持能转成数字的字符串
   let accounting = require('accounting/accounting.min.js');
   let num = +str;
@@ -135,7 +141,7 @@ export function toFixed(str, reserved = 2) {
     if (numArray[1] * 1 === 0) {   /* 小数部分为0，直接输出整数部分 */
       return numArray[0];
     }
-    return accounting.toFixed(num, reserved);
+    return accounting.toFixed(num, reserved || 2);
     /* 小数部分不为0，输出四舍五入 */
   } else {  /* 只有整数，直接输出整数部分 */
     return numArray[0]
