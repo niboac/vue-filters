@@ -28,23 +28,22 @@ export function parseTime(time, cFormat) {
 
 
   const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}';
-  let date = new Date(time);
+  var tempDate = new Date(time);
   if (typeof time == 'object') {
-    date = time;
+    tempDate = time;
   }
   const formatObj = {
-    y: date.getFullYear(),
-    m: date.getMonth() + 1,
-    d: date.getDate(),
-    h: date.getHours(),
-    i: date.getMinutes(),
-    s: date.getSeconds(),
-    a: date.getDay()
+    y: tempDate.getFullYear(),
+    m: tempDate.getMonth() + 1,
+    d: tempDate.getDate(),
+    h: tempDate.getHours(),
+    i: tempDate.getMinutes(),
+    s: tempDate.getSeconds(),
+    a: tempDate.getDay()
   };
-  console.log(format)
-  let test = new RegExp('{(y|m|d|h|i|s|a)+}', 'g');
+  var test = new RegExp('{(y|m|d|h|i|s|a)+}', 'g');
   const time_str = format.replace(test, function(result, key) {
-    let value = formatObj[key];
+    var value = formatObj[key];
     if (key === 'a') return ['一', '二', '三', '四', '五', '六', '日'][value - 1];
     if (result.length > 0 && value < 10) {
       value = '0' + value;
@@ -87,9 +86,9 @@ export function nFormatter(num, digits) {
     { value: 1E6, symbol: 'M' },
     { value: 1E3, symbol: 'k' }
   ];
-  for (let i = 0; i < si.length; i++) {
+  for (var i = 0; i < si.length; i++) {
     if (num >= si[i].value) {
-      let test = new RegExp('\.0+$|(\.[0-9]*[1-9])0+$');
+      var test = new RegExp('\.0+$|(\.[0-9]*[1-9])0+$');
 
       return (num / si[i].value + 0.1).toFixed(digits).replace(test, '$1') + si[i].symbol;
     }
@@ -106,7 +105,7 @@ export function html2Text(val) {
 
 // 给数字加逗号分隔符
 export function toThousandFilter(num) {
-  let test = new RegExp('(\d)(?=(?:\d{3})+$)', 'g');
+  var test = new RegExp('(\d)(?=(?:\d{3})+$)', 'g');
 
   return (+num || 0).toString().replace(test, '$1,');
 }
@@ -128,15 +127,15 @@ export function stringLeft(str, num) {
 
 export function toFixed(str, reserved) {
   // 本函数支持能转成数字的字符串
-  let accounting = require('accounting/accounting.min.js');
-  let num = +str;
+  var accounting = require('accounting/accounting.min.js');
+  var num = +str;
   if (typeof str === 'boolean' || typeof str === 'undefined' || typeof str === 'object'
     || str === '' || Number.isNaN(num)) {
     // 如果num是个无法转成数字的字符串, bool值直接返回
     return str;
   }
 
-  let numArray = (num + '').split('.');
+  var numArray = (num + '').split('.');
   if (numArray.length > 1) { /* 有小数*/
     if (numArray[1] * 1 === 0) {   /* 小数部分为0，直接输出整数部分 */
       return numArray[0];
