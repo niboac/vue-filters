@@ -2,7 +2,7 @@
   "name": "vue-filters",
   "version": "0.1.0",
   "description": "filters Vue.js.",
-  "main": "filters.js",
+  "main": "index.js",
   "files": [
     "lib",
     "src",
@@ -30,9 +30,9 @@
     "type": "git",
     "url": "git@github.com:niboac/vuefilters.git"
   },
-  "homepage": "http://element.eleme.io",
+  "homepage": "github.com:niboac/vuefilters",
   "keywords": [
-    "eleme",
+    "filter",
     "vue",
     "components"
   ],
