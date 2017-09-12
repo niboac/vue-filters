@@ -6,7 +6,8 @@
   "files": [
     "lib",
     "src",
-    "packages"
+    "packages",
+    "dist"
   ],
   "scripts": {
     "bootstrap": "yarn || npm i",
