@@ -8,7 +8,8 @@
     "src",
     "packages",
     "dist",
-    "index.js"
+    "index.js",
+    "index.min.js"
   ],
   "scripts": {
     "bootstrap": "yarn || npm i",
