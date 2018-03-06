@@ -127,7 +127,7 @@ export function stringLeft(str, num) {
 
 export function toFixed(str, reserved) {
   // 本函数支持能转成数字的字符串
-  var accounting = require('accounting/accounting.min.js');
+  // var accounting = require('accounting/accounting.min.js');
   var num = +str;
   if (typeof str === 'boolean' || typeof str === 'undefined' || typeof str === 'object'
     || str === '' || Number.isNaN(num)) {
@@ -140,7 +140,8 @@ export function toFixed(str, reserved) {
     if (numArray[1] * 1 === 0) {   /* 小数部分为0，直接输出整数部分 */
       return numArray[0];
     }
-    return accounting.toFixed(num, reserved || 2);
+    var power = Math.pow(10, reserved || 2);
+    return Math.round(num * power) / power;
     /* 小数部分不为0，输出四舍五入 */
   } else {  /* 只有整数，直接输出整数部分 */
     return numArray[0]
